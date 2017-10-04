@@ -1,7 +1,7 @@
-####Homeless? Soon to be homeless? 
+### Homeless? Soon to be homeless?
 
 Housing market in Munich sucks. Going homeless is normal. 
-Renting a dog house in Munich is out of middle class reach.
+Renting a dog house in Munich is out of the reach for middle class.
 
 One aspect (besides having a substantial salary) is to be quick to 
 respond to new ads. Typically, if you respond to an ad later than 30
