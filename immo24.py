@@ -126,23 +126,41 @@ def parse_immonet(data):
       #print('titles out: ', this_ad_title)
    return titles, links
 
+def parse_immowelt(data):
+   adverts = re.findall(r'<h2 class=\"ellipsis\">(.*?)</h2>', str(data))
+   del adverts[::2]
+   #print('ad_section:', ad_section)
+   #adverts = re.findall(r'title=\"(.*?)">', str(ad_section))
+   #print(ad_blocks)
 
+   titles = []
+   links = []
+   # get link and caption
+   for ad in adverts:
+      #print('\nadvert: ')
+      #print(ad)
+      titles.append(ad)
+      #print('titles out: ', this_ad_title)
+   return titles, links
+
+  
 
 
 
 
 def id2site(idx):
    if idx == 0:
-      return 'immo24 '
+      return 'immo24  '
    elif idx == 1:
-      return 'wg-gs  '
+      return 'wg-gs   '
    elif idx == 2:
-      return 'ebay   '
+      return 'ebay    '
    elif idx == 3:
-      return 'quoka  '
+      return 'quoka   '
    elif idx == 4:
-      return 'immonet'
-
+      return 'immonet '
+   elif idx == 5:
+      return 'immowelt'
 
 # url and parser_id struct
 class url_:
@@ -195,6 +213,7 @@ parser_wggs = 1
 parser_ebay = 2
 parser_quoka = 3
 parser_immonet = 4
+parser_immowelt = 5
 
 # addresses to check
 urls = []
@@ -231,6 +250,9 @@ urls.append(url_('https://www.quoka.de/vermietung-wohnungen/vermietung-1-zimmer-
 # immonet.de all munich
 urls.append(url_('https://www.immonet.de/immobiliensuche/sel.do?&sortby=0&suchart=1&objecttype=1&marketingtype=2&parentcat=1&toprice=900&city=121673&locationname=M%C3%BCnchen', parser_immonet))
 
+# immowelt all munich
+urls.append(url_('https://www.immowelt.de/liste/muenchen/wohnungen/mieten?prima=900&sort=createdate%2Bdesc', parser_immowelt))
+
 
 # history 
 history = []
@@ -247,8 +269,8 @@ for hitem in history:
 
 
 ### parsing test
-#data = get_page('https://www.immonet.de/immobiliensuche/sel.do?&sortby=0&suchart=1&objecttype=1&marketingtype=2&parentcat=1&toprice=900&city=121673&locationname=M%C3%BCnchen')
-#parse_immo(data)
+#data = get_page('https://www.immowelt.de/liste/muenchen/wohnungen/mieten?prima=900&sort=createdate%2Bdesc')
+#parse_immowelt(data)
 #quit()
 
 #################################################################################
@@ -274,6 +296,10 @@ while True:
          titles, link = parse_quoka(data)
       elif urls[site].parser_id == parser_immonet:
          titles, link = parse_immonet(data)
+      elif urls[site].parser_id == parser_immowelt:
+         titles, link = parse_immowelt(data)
+         
+
 
       # faster initialization
       if len(history[site])  == 0: 
